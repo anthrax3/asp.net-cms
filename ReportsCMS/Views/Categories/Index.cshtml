@@ -1,0 +1,68 @@
+﻿@model List<ReportsCMS.Controllers.ReportsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    int itemCount = 0;
+}
+
+<h2>Index</h2>
+
+<div class="container demo">
+
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        {
+            if (item.ReportLinkses.Count > 0)
+            {
+                <div class="panel-group col-md-4" style="margin-top: 10px; " id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="@(String.Format("#collapse{0}", itemCount))"
+                                   aria-expanded="true" aria-controls="@(String.Format("collapse{0}", itemCount))">
+                                    <i class="more-less glyphicon glyphicon-plus"></i>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </a>
+                                <span class="badge pull-right">@Html.DisplayFor(modelItem => item.ReportLinkses.Count)</span>
+                            </h4>
+                        </div>
+                        <div id="@(String.Format("collapse{0}", itemCount))" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                                <ul>
+                                    @foreach (var report in item.ReportLinkses)
+                                    {
+                                        <li>@Html.DisplayFor(modelItem => report.ReportName)</li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        itemCount += 1;
+                    }
+                </div><!-- panel-group -->
+
+                            }
+
+                        }
+    </div>
+</div><!-- container -->
+
+
+
+
+
+
+<script type="text/javascript">
+    function toggleIcon(e) {
+        $(e.target)
+            .prev('.panel-heading')
+            .find(".more-less")
+            .toggleClass('glyphicon-plus glyphicon-minus');
+    }
+    $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+    $('.panel-group').on('shown.bs.collapse', toggleIcon);
+
+</script>

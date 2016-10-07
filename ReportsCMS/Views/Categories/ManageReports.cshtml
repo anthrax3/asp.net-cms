@@ -1,0 +1,31 @@
+﻿@model System.Collections.Generic.List<ReportsCMS.Models.ReportLinks>
+
+@{
+    ViewBag.Title = "manage Reports";
+}
+
+<h2>manage Reports</h2>
+<table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+    <tr>
+        <th>Report Name</th>
+        <th>Report Link</th>
+        <th>Category</th>
+        <th>Displayed</th>
+        <th>Actions</th>
+    </tr>
+    @{
+        foreach (var reportLinkse in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => reportLinkse.ReportName)</td>
+                <td>@Html.DisplayFor(modelItem => reportLinkse.Link)</td>
+                <td>@Html.DisplayFor(modelItem => reportLinkse.ParentCategoryId)</td>
+                <td>@Html.DisplayFor(modelItem => reportLinkse.Display)</td>
+                <td>@Html.ActionLink("Edit", "Edit", new {id = reportLinkse.Id}) | 
+                    @Html.ActionLink("Details", "Details", new { id=reportLinkse.Id })</td>
+            </tr>
+        
+        }
+    }  
+    
+</table>
